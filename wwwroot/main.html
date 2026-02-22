@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        /* 폰트 설정 */
+        @font-face {
+            font-family: 'Pretendard';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: 'Pretendard-Bold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #2c2830;
+            color: #FAFAFA;
+            font-family: 'Pretendard-Bold', sans-serif;
+            margin: 0;
+            padding: 0;
+            /* 💡 고정 픽셀(400px) 대신 화면 크기에 꽉 차도록 vw, vh 단위 사용 (HiDPI 대응) */
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        button {
+            position: absolute;
+            border: none;
+            border-radius: 12px;
+            color: #4A4A4A;
+            font-family: 'Pretendard-Bold', sans-serif;
+            cursor: pointer;
+            transition: all 0.1s ease;
+        }
+
+        /* 🟦 Cyan 그룹 (소다맛) */
+        .btn-cyan {
+            background: linear-gradient(135deg, #aef0ea, #8cdbcf);
+            box-shadow: 0 3px 0 #71C9C0, 0 5px 10px rgba(0,0,0,0.15);
+            font-size: 15pt;
+        }
+
+            .btn-cyan:hover:not(:disabled) {
+                filter: brightness(1.03);
+            }
+
+            .btn-cyan:active:not(:disabled) {
+                transform: translateY(3px);
+                box-shadow: 0 0px 0 #71C9C0, 0 2px 4px rgba(0,0,0,0.15);
+            }
+
+        /* 🟩 Green 그룹 (메론맛) */
+        .btn-green {
+            background: linear-gradient(135deg, #d3ebaf, #b2d78d);
+            box-shadow: 0 3px 0 #9CCC65, 0 5px 10px rgba(0,0,0,0.15);
+            font-size: 14pt;
+        }
+
+            .btn-green:hover:not(:disabled) {
+                filter: brightness(1.03);
+            }
+
+            .btn-green:active:not(:disabled) {
+                transform: translateY(3px);
+                box-shadow: 0 0px 0 #9CCC65, 0 2px 4px rgba(0,0,0,0.15);
+            }
+
+        /* 🟧 Orange 그룹 (복숭아) */
+        .btn-orange {
+            background: linear-gradient(135deg, #ffc5bf, #fcaba4);
+            box-shadow: 0 3px 0 #E2938E, 0 5px 10px rgba(0,0,0,0.15);
+            font-size: 12pt;
+        }
+
+            .btn-orange:hover:not(:disabled) {
+                filter: brightness(1.03);
+            }
+
+            .btn-orange:active:not(:disabled) {
+                transform: translateY(3px);
+                box-shadow: 0 0px 0 #E2938E, 0 2px 4px rgba(0,0,0,0.15);
+            }
+
+        button:disabled {
+            background: linear-gradient(135deg, #666666, #555555);
+            color: #999999;
+            box-shadow: 0 3px 0 #333333;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .label {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF0F5;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.6);
+            /* 💡 글씨가 뭉개지지 않도록 렌더링 옵션 추가 */
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            -webkit-user-drag: none;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;" ondragstart="return false;">
+
+    <img src="assets/aast_f1.png" style="position: absolute; left: 0px; top: 0px; width: 100%; height: 160px; object-fit: cover;" draggable="false">
+
+    <button id="btn_FormsChange" class="btn-cyan" style="left: 12px; top: 166px; width: 183px; height: 42px;" onclick="sendCommand('FormsChange')">FOrmCHange</button>
+    <button id="btn_rec_start" class="btn-cyan" style="left: 205px; top: 166px; width: 183px; height: 42px; color: #d63031;" onclick="sendCommand('rec_start')">●</button>
+
+    <div id="lbl_rectimer" class="label" style="left: 12px; top: 211px; width: 376px; height: 30px; font-size: 11pt; font-family: 'Pretendard', sans-serif;">
+        TIMER LABEL
+    </div>
+
+    <button id="btn_rec_3mh" class="btn-green" style="left: 12px; top: 244px; width: 183px; height: 42px;" onclick="sendCommand('rec_3mh')" disabled>하이라이트 저장</button>
+    <button id="btn_openexplorer_rec" class="btn-green" style="left: 205px; top: 244px; width: 183px; height: 42px;" onclick="sendCommand('openexplorer_rec')">파일 이동</button>
+
+    <button id="btn_cardmove" class="btn-orange" style="left: 12px; top: 292px; width: 153px; height: 32px;" onclick="sendCommand('cardmove')">게임카드 이전하기</button>
+    <button id="btn_privacy" class="btn-orange" style="left: 173px; top: 292px; width: 145px; height: 32px;" onclick="sendCommand('privacy')">프라이버시 모드</button>
+    <button id="btn_more" class="btn-orange" style="left: 326px; top: 292px; width: 62px; height: 32px;" onclick="sendCommand('more')">더보기</button>
+
+    <div id="lbl_linkinfo" class="label" style="left: 0px; top: 563px; width: 100%; height: 30px; font-size: 18pt; align-items: flex-start;">
+        놀자오락실 공식 유튜브 생방송
+    </div>
+
+    <div style="position: absolute; left: 50%; transform: translateX(-50%); top: 598px; width: 269px; height: 273px; background-color: white; border-radius: 8px;"></div>
+    <img src="assets/frame.png" style="position: absolute; left: 50%; transform: translateX(-50%); top: 610px; width: 247px; height: 247px; object-fit: stretch;" draggable="false">
+
+    <div id="lbl_version" class="label" style="left: 12px; top: 894px; font-size: 11pt; font-family: 'Pretendard', sans-serif;">
+        v6.0.0
+    </div>
+
+    <script>
+        function sendCommand(cmdName) {
+            window.external.sendMessage(JSON.stringify({ action: cmdName }));
+        }
+
+        window.external.receiveMessage(function (data) {
+            const json = JSON.parse(data);
+            if (json.target === 'timer') document.getElementById('lbl_rectimer').innerText = json.value;
+            if (json.target === 'version') document.getElementById('lbl_version').innerText = json.value;
+            if (json.target === 'rec_3mh_enable') {
+                document.getElementById('btn_rec_3mh').disabled = !json.value;
+            }
+        });
+    </script>
+</body>
+</html>
