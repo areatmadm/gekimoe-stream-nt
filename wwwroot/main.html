@@ -23,7 +23,6 @@
             font-family: 'Pretendard-Bold', sans-serif;
             margin: 0;
             padding: 0;
-            /* 💡 고정 픽셀(400px) 대신 화면 크기에 꽉 차도록 vw, vh 단위 사용 (HiDPI 대응) */
             width: 100vw;
             height: 100vh;
             overflow: hidden;
@@ -32,6 +31,7 @@
             -webkit-user-drag: none;
         }
 
+        /* 🌟 완전 플랫(Flat) 파스텔 톤 */
         button {
             position: absolute;
             border: none;
@@ -39,63 +39,64 @@
             color: #4A4A4A;
             font-family: 'Pretendard-Bold', sans-serif;
             cursor: pointer;
-            transition: all 0.1s ease;
+            transition: all 0.15s ease;
+            /* 두꺼운 3D 그림자를 싹 지우고, 패널 느낌의 아주 은은한 그림자만 남겼습니다 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* 🟦 Cyan 그룹 (소다맛) */
+        /* 🟦 Cyan 그룹 (소다맛 파스텔) */
         .btn-cyan {
             background: linear-gradient(135deg, #aef0ea, #8cdbcf);
-            box-shadow: 0 3px 0 #71C9C0, 0 5px 10px rgba(0,0,0,0.15);
             font-size: 15pt;
         }
-
+            /* 누르면 밑으로 꺼지지 않고, 살짝 어두워지며 미세하게 수축합니다 */
             .btn-cyan:hover:not(:disabled) {
-                filter: brightness(1.03);
+                filter: brightness(1.05);
             }
 
             .btn-cyan:active:not(:disabled) {
-                transform: translateY(3px);
-                box-shadow: 0 0px 0 #71C9C0, 0 2px 4px rgba(0,0,0,0.15);
+                transform: scale(0.97);
+                filter: brightness(0.95);
             }
 
-        /* 🟩 Green 그룹 (메론맛) */
+        /* 🟩 Green 그룹 (메론맛 파스텔) */
         .btn-green {
             background: linear-gradient(135deg, #d3ebaf, #b2d78d);
-            box-shadow: 0 3px 0 #9CCC65, 0 5px 10px rgba(0,0,0,0.15);
             font-size: 14pt;
         }
 
             .btn-green:hover:not(:disabled) {
-                filter: brightness(1.03);
+                filter: brightness(1.05);
             }
 
             .btn-green:active:not(:disabled) {
-                transform: translateY(3px);
-                box-shadow: 0 0px 0 #9CCC65, 0 2px 4px rgba(0,0,0,0.15);
+                transform: scale(0.97);
+                filter: brightness(0.95);
             }
 
-        /* 🟧 Orange 그룹 (복숭아) */
+        /* 🟧 Orange 그룹 (복숭아 파스텔) */
         .btn-orange {
             background: linear-gradient(135deg, #ffc5bf, #fcaba4);
-            box-shadow: 0 3px 0 #E2938E, 0 5px 10px rgba(0,0,0,0.15);
             font-size: 12pt;
         }
 
             .btn-orange:hover:not(:disabled) {
-                filter: brightness(1.03);
+                filter: brightness(1.05);
             }
 
             .btn-orange:active:not(:disabled) {
-                transform: translateY(3px);
-                box-shadow: 0 0px 0 #E2938E, 0 2px 4px rgba(0,0,0,0.15);
+                transform: scale(0.97);
+                filter: brightness(0.95);
             }
 
+        /* 비활성화 상태 (플랫 회색) */
         button:disabled {
-            background: linear-gradient(135deg, #666666, #555555);
-            color: #999999;
-            box-shadow: 0 3px 0 #333333;
+            background: linear-gradient(135deg, #555555, #444444);
+            color: #888888;
+            box-shadow: none;
             cursor: not-allowed;
             transform: none !important;
+            filter: none !important;
         }
 
         .label {
@@ -105,7 +106,6 @@
             justify-content: center;
             color: #FFF0F5;
             text-shadow: 0px 2px 5px rgba(0,0,0,0.6);
-            /* 💡 글씨가 뭉개지지 않도록 렌더링 옵션 추가 */
             text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
         }
